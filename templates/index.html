@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Deployment Tutorial 1</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  
+</head>
+
+<body style="background: rgb(248, 248, 248);">
+ <div class="login">
+	<h1>Stop forecasting</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+
+      <label> Circuit </label>
+        <select class="select-css" name = "circuit">
+          {% for circuit in circuits %}
+          <option value= "{{circuit}}" SELECTED>{{circuit}}</option>"
+          {% endfor %}
+        </select>
+
+        <label> Driver </label>
+        <select class="select-css"  name = "driver">
+          {% for driver in drivers %}
+          <option value= "{{driver}}" SELECTED>{{driver}}</option>"
+          {% endfor %}
+        </select>
+      
+        <label> Lap number </label>
+        <select class="select-css"  name = "lap">
+          {% for lap in laps %}
+          <option value= "{{lap}}" SELECTED>{{lap}}</option>"
+          {% endfor %}
+        </select>
+
+        <label> Actual position </label>
+        <select class="select-css"  name = "pos">
+          {% for pos in position %}
+          <option value= "{{pos}}" SELECTED>{{pos}}</option>"
+          {% endfor %}
+        </select>
+
+        <label> How many previous stops </label>
+        <select class="select-css"  name = "stop">
+          {% for stop in stops %}
+          <option value= "{{stop}}" SELECTED>{{stop}}</option>"
+          {% endfor %}
+        </select>
+
+      <label> How many laps since last stop </label>
+		 <select class="select-css"  name = "timesincelaststop">
+          {% for laststop in laststops %}
+          <option value= "{{laststop}}" SELECTED>{{laststop}}</option>"
+          {% endfor %}
+        </select>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict stop probability</button>
+    </form>
+
+   <br>
+   {{ prediction_text }}
+
+   <br>
+   <br>
+   Note : Model size was too large to be uploaded on github so we had to create a smaller (hence less efficient one) for test purposes
+ </div>
+ 
+</body>
+</html>
